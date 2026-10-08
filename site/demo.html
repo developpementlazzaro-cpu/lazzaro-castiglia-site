@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#231715">
+  <meta name="description" content="Maison Sésame — Démonstration d'un site vitrine premium pour restaurant. Établissement fictif, conçu pour un portfolio.">
+  <title>Maison Sésame — Restaurant de saison · Démonstration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="demo-flag" role="note"><span class="flag-dot"></span>Site de démonstration · Maison Sésame est un établissement fictif</div>
+  <header class="site-header" id="site-header">
+    <div class="header-inner wrap">
+      <a class="logo" href="#accueil" aria-label="Maison Sésame, retour à l'accueil"><span class="logo-icon" aria-hidden="true">✳</span><span>MAISON <em>SÉSAME</em></span></a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <a href="#maison">La maison</a>
+        <a href="#carte">La carte</a>
+        <a href="#experience">L'expérience</a>
+        <a href="#contact">Nous trouver</a>
+      </nav>
+      <button class="btn btn-header" data-open-reservation>Réserver <span aria-hidden="true">↗</span></button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-controls="main-nav" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="accueil" aria-labelledby="hero-title">
+      <div class="hero-bg"></div><div class="hero-tint"></div>
+      <div class="hero-content wrap">
+        <div class="hero-copy reveal">
+          <div class="eyebrow light"><span class="eyebrow-line"></span> Une adresse à savourer · Lille</div>
+          <h1 id="hero-title">Le goût des<br><i>instants</i> qui<br>comptent.</h1>
+          <p>Une cuisine de saison, des produits choisis avec cœur, et cette sensation rare d'être exactement là où l'on doit être.</p>
+          <div class="hero-actions"><button class="btn btn-cream" data-open-reservation>Réserver une table <span aria-hidden="true">↗</span></button><a class="text-link light-link" href="#carte">Découvrir la carte <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="hero-side"><span>LA TABLE · LE PARTAGE · LA SAISON</span><span class="side-rule"></span><span>01 / 04</span></div>
+      </div>
+      <a class="scroll-cue" href="#maison"><span>FAIRE DÉFILER</span><span class="scroll-line"></span></a>
+      <div class="hero-credit">IMAGE D'ILLUSTRATION · UNSPLASH</div>
+    </section>
+
+    <section class="intro section-padding" id="maison">
+      <div class="wrap">
+        <div class="intro-head reveal"><span class="eyebrow"><span class="eyebrow-line"></span> Bienvenue à la maison</span><span class="small-index">01 — NOTRE HISTOIRE</span></div>
+        <div class="intro-grid">
+          <div class="intro-left reveal">
+            <h2>Les belles choses<br>se partagent <em>à table.</em></h2>
+            <p>Chez Maison Sésame, chaque assiette raconte une histoire simple : celle d'un produit respecté, d'une envie sincère et d'un moment qu'on aimerait faire durer.</p>
+            <a href="#experience" class="text-link">L'esprit de la maison <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="intro-right reveal"><div class="intro-picture image-frame"><img src="/assets/dining.jpg" alt="Table élégamment dressée dans une salle de restaurant chaleureuse" loading="lazy"><span class="picture-stamp">CUISINE<br>DE SAISON<br>✳</span></div><div class="caption-number">LA MAISON — DEPUIS TOUJOURS DANS NOS CŒURS</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="values-strip" aria-label="Nos engagements">
+      <div class="wrap values-inner"><span>PRODUITS DE SAISON</span><span class="sparkle">✳</span><span>CUISINE GÉNÉREUSE</span><span class="sparkle">✳</span><span>INSTANTS PARTAGÉS</span><span class="sparkle">✳</span><span>PLAISIR SINCÈRE</span></div>
+    </section>
+
+    <section class="menu-section section-padding" id="carte">
+      <div class="wrap">
+        <div class="section-heading reveal"><div><span class="eyebrow"><span class="eyebrow-line"></span> À déguster</span><h2>Une carte qui suit<br><em>les envies.</em></h2></div><p>Quelques belles idées, des produits de saison et beaucoup d'attention dans chaque détail.</p></div>
+        <div class="menu-tabs" role="tablist" aria-label="Exemples de cartes"><button role="tab" id="tab-signature" aria-controls="panel-menu" aria-selected="true" class="active" data-menu="signature">Les signatures</button><button role="tab" id="tab-midi" aria-controls="panel-menu" aria-selected="false" data-menu="midi">Le déjeuner</button></div>
+        <div class="menu-grid" id="panel-menu" role="tabpanel" aria-labelledby="tab-signature">
+          <article class="dish-card reveal"><div class="dish-image"><img id="dish-img-1" src="/assets/dish1.jpg" loading="lazy" alt="Assiette gastronomique de saison"><span class="dish-no">01</span></div><div class="dish-meta"><div><h3 id="dish-name-1">L'assiette du jardin</h3><p id="dish-desc-1">Légumes de saison · herbes fraîches · notes citronnées</p></div><span id="dish-price-1">18 €</span></div></article>
+          <article class="dish-card reveal"><div class="dish-image"><img id="dish-img-2" src="/assets/dish2.jpg" loading="lazy" alt="Plat chaleureux préparé avec soin"><span class="dish-no">02</span></div><div class="dish-meta"><div><h3 id="dish-name-2">La pièce du moment</h3><p id="dish-desc-2">Cuisson juste · jus maison · garniture du marché</p></div><span id="dish-price-2">29 €</span></div></article>
+          <article class="dish-card reveal"><div class="dish-image"><img id="dish-img-3" src="/assets/dish3.jpg" loading="lazy" alt="Dessert gourmand dressé à l'assiette"><span class="dish-no">03</span></div><div class="dish-meta"><div><h3 id="dish-name-3">La douceur Sésame</h3><p id="dish-desc-3">Création sucrée · textures délicates · gourmandise</p></div><span id="dish-price-3">12 €</span></div></article>
+        </div>
+        <div class="menu-note">Carte, prix et photographies présentés à titre d'exemple pour cette maquette.</div>
+      </div>
+    </section>
+
+    <section class="editorial" id="experience">
+      <div class="editorial-image" role="img" aria-label="Ambiance feutrée d'un restaurant contemporain"></div>
+      <div class="editorial-panel"><div class="editorial-content reveal"><span class="eyebrow light"><span class="eyebrow-line"></span> L'art de recevoir</span><h2>On vient pour<br>la cuisine.<br><em>On reste pour<br>l'atmosphère.</em></h2><p>Un rendez-vous improvisé, un dîner qu'on attendait, ou simplement l'envie de bien manger. Ici, toutes les occasions ont leur place.</p><button class="btn btn-outline" data-open-reservation>Imaginer votre soirée <span aria-hidden="true">↗</span></button></div></div>
+    </section>
+
+    <section class="contact section-padding" id="contact">
+      <div class="wrap contact-grid">
+        <div class="contact-title reveal"><span class="eyebrow"><span class="eyebrow-line"></span> À très bientôt</span><h2>La suite de<br>l'histoire, <em>ici.</em></h2><p>Une belle table n'attend qu'une chose : les personnes qui vont s'y retrouver.</p><button class="btn btn-dark" data-open-reservation>Demander une réservation <span aria-hidden="true">↗</span></button></div>
+        <div class="contact-details reveal"><div class="detail-group"><span class="detail-kicker">L'ADRESSE</span><h3>Au cœur de Lille</h3><p>Adresse fictive pour cette démonstration<br>59000 Lille · France</p></div><div class="detail-group"><span class="detail-kicker">NOS HORAIRES · EXEMPLES</span><div class="hours"><span>Mardi – Vendredi</span><span>12h–14h · 19h–22h</span><span>Samedi</span><span>19h–23h</span><span>Dimanche – Lundi</span><span>Fermé</span></div></div><div class="detail-group"><span class="detail-kicker">UN PETIT MOT ?</span><p>Formulaire de démonstration — aucun message transmis.</p><button class="text-link" data-open-reservation>Nous écrire <span aria-hidden="true">↗</span></button></div></div>
+      </div>
+    </section>
+    <section class="final-banner"><div class="wrap"><span>MAISON SÉSAME</span><strong>Le plaisir d'être ensemble.</strong><span>UN INSTANT À PART</span></div></section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><a class="logo" href="#accueil"><span class="logo-icon" aria-hidden="true">✳</span><span>MAISON <em>SÉSAME</em></span></a><p>Concept de restaurant fictif · Maquette commerciale.<br>Aucune réservation ni transaction n'est enregistrée.</p><a href="#accueil" class="back-to-top">Retour en haut ↑</a></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> MAISON SÉSAME · CONCEPT</span><span>SITE VITRINE DE DÉMONSTRATION</span></div></footer>
+  <div class="modal" id="reservation-modal" aria-hidden="true"><div class="modal-shade" data-close-reservation></div><div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" data-close-reservation aria-label="Fermer">×</button><span class="eyebrow"><span class="eyebrow-line"></span> Votre table</span><h2 id="modal-title">Un moment<br><em>à partager.</em></h2><p>Voici un exemple d'interface de réservation. Aucune demande ne sera envoyée.</p><form id="reservation-form"><label for="guest-name">Votre nom</label><input required name="guest-name" id="guest-name" autocomplete="name" placeholder="Votre nom"><div class="form-row"><div><label for="guest-date">Date souhaitée</label><input required type="date" name="guest-date" id="guest-date"></div><div><label for="guest-count">Personnes</label><select name="guest-count" id="guest-count"><option>2 personnes</option><option>1 personne</option><option>3 personnes</option><option>4 personnes</option><option>5 personnes</option><option>6 personnes</option></select></div></div><button type="submit" class="btn btn-dark form-submit">Voir la démonstration <span aria-hidden="true">↗</span></button><p class="form-result" id="form-result" role="status" aria-live="polite"></p></form></div></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
