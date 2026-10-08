@@ -3,7 +3,7 @@
 import fs from 'node:fs/promises';
 const root='site/assets';
 await fs.mkdir(root,{recursive:true});
-const base='https://toolbar-immigration-dam-area.trycloudflare.com/assets/';
+const base='https://developpementlazzaro-cpu.github.io/lazzaro-castiglia-site/assets/';
 const files=['hero.jpg','dining.jpg','dish1.jpg','dish2.jpg','dish3.jpg','experience.jpg'];
 for(const file of files){
  const resp=await fetch(base+file,{signal:AbortSignal.timeout(25000)});
