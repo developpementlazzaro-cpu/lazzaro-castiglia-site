@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+# Lazzaro Peche static catalogue
