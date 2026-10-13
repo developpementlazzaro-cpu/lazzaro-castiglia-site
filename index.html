@@ -35,6 +35,7 @@
         <a class="side-link active" href="#accueil" data-side-link="accueil"><span data-icon="layout-dashboard"></span><span>Vue d'ensemble</span><span class="side-key">01</span></a>
         <a class="side-link" href="#concepts" data-side-link="concepts"><span data-icon="library"></span><span>Le glossaire RP</span><span class="side-key">02</span></a>
         <a class="side-link" href="#scenarios" data-side-link="scenarios"><span data-icon="route"></span><span>Situations pratiques</span><span class="side-key">03</span></a>
+        <a class="side-link" href="#assistance" data-side-link="assistance"><span data-icon="shield-check"></span><span>Assistance FiveM</span><span class="side-key">04</span></a>
         <button class="side-link" type="button" id="favorites-nav"><span data-icon="bookmark"></span><span>Mes favoris</span><span class="side-key" id="favorite-count">0</span></button>
         <div class="nav-label nav-label-second">CHAPITRES <span class="label-dash"></span></div>
         <nav id="chapter-nav" class="chapter-nav" aria-label="Chapitres"></nav>
@@ -44,7 +45,7 @@
           <a href="https://discord.gg/lazzenarp" target="_blank" rel="noopener noreferrer" class="side-discord"><span data-icon="external-link"></span> Notre Discord officiel</a>
         </div>
       </div>
-      <div class="side-footer"><span class="side-version">CODEX / BUILD 1.0</span><span>© LAZZENA RP</span></div>
+      <div class="side-footer"><span class="side-version">CODEX / BUILD 1.1</span><span>© LAZZENA RP</span></div>
     </aside>
 
     <div class="main-column">
@@ -118,6 +119,57 @@
           </div>
         </section>
 
+
+        <section class="support-center" id="assistance" aria-label="Assistance technique FiveM et Discord">
+          <div class="section-lead">
+            <div><span class="overline"><span class="overline-bar"></span> 04 / ASSISTANCE TECHNIQUE</span><h2>Un problème ? <em>On t'accompagne.</em></h2><p>Deux guides pas à pas pour retrouver une expérience fluide sur LAZZENA RP.</p></div>
+            <div class="support-header-stamp">LAZZENA<br><strong>PLAYER SUPPORT</strong></div>
+          </div>
+          <div class="support-quicklinks" aria-label="Accès aux tutoriels">
+            <a href="#lier-discord-fivem" class="support-quicklink"><span class="support-quickicon" data-icon="link"></span><span><small>CONNEXION / DISCORD</small><strong>Lier Discord à FiveM</strong><span>Autorisation, privilèges et lancement</span></span><span data-icon="arrow-up-right"></span></a>
+            <a href="#vider-cache-fivem" class="support-quicklink"><span class="support-quickicon" data-icon="layers"></span><span><small>MAINTENANCE / WINDOWS</small><strong>Vider le cache FiveM</strong><span>Nettoyer les fichiers temporaires</span></span><span data-icon="arrow-up-right"></span></a>
+          </div>
+
+          <article class="support-guide" id="lier-discord-fivem" data-guide="discord">
+            <div class="support-guide-top"><div class="support-icon" data-icon="link"></div><div class="support-guide-identity"><span class="support-code">TUTORIEL / 001</span><h3>Lier Discord à <em>FiveM</em></h3><p>Rétablis la liaison entre Discord et FiveM en suivant ces trois étapes, dans l'ordre.</p></div><span class="support-os">DISCORD + FIVEM</span></div>
+            <div class="support-notice"><span data-icon="shield-alert"></span><div><strong>Avant de commencer</strong><p>Ferme FiveM. Si tu rencontres déjà des erreurs d'autorisation, suis la procédure complète ci-dessous.</p></div></div>
+            <div class="support-steps">
+              <div class="support-step" data-step="discord-1"><div class="support-step-index">01<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 1</span><h4>Réinitialiser l'autorisation d'application</h4></div><span class="support-step-tag">DISCORD</span></div>
+                <ol><li>Assure-toi que <strong>FiveM est fermé</strong>.</li><li>Ouvre Discord et accède aux <strong>Paramètres utilisateur</strong> (roue dentée).</li><li>Ouvre l'onglet <strong>Applications autorisées</strong>.</li><li>Repère <strong>FiveM</strong>, puis clique sur <strong>Retirer l'autorisation</strong> si l'application apparaît.</li><li><strong>Ferme complètement Discord</strong>, également depuis la zone de notification de Windows.</li></ol>
+                <label class="support-done"><input type="checkbox" data-support-check="discord-1"><span class="support-check-ui" data-icon="check"></span> J'ai terminé cette étape</label>
+              </div></div>
+              <div class="support-step" data-step="discord-2"><div class="support-step-index">02<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 2</span><h4>Vérifier les permissions de Discord</h4></div><span class="support-step-tag">WINDOWS</span></div>
+                <p>Vérifie que Discord ne démarre <strong>pas en mode administrateur</strong> :</p>
+                <ol><li>Fais un clic droit sur l'icône ou le raccourci Discord puis sélectionne <strong>Ouvrir l'emplacement du fichier</strong>.</li><li>Fais un clic droit sur le raccourci Discord puis choisis <strong>Propriétés</strong>.</li><li>Dans l'onglet <strong>Raccourci</strong>, ouvre <strong>Avancé…</strong>.</li><li>Assure-toi que l'option <strong>Exécuter en tant qu'administrateur</strong> est <strong>décochée</strong>. Valide les changements si nécessaire.</li></ol>
+                <p class="support-step-hint">Selon la version de Windows, vérifie aussi l'onglet <strong>Compatibilité</strong> du programme Discord si cette option n'est pas visible sur le raccourci.</p>
+                <label class="support-done"><input type="checkbox" data-support-check="discord-2"><span class="support-check-ui" data-icon="check"></span> J'ai terminé cette étape</label>
+              </div></div>
+              <div class="support-step" data-step="discord-3"><div class="support-step-index">03</div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 3</span><h4>Relancer les applications dans le bon ordre</h4></div><span class="support-step-tag">CONNEXION</span></div>
+                <ol><li>Lance <strong>Discord en premier</strong> et assure-toi d'être connecté à ton compte.</li><li>Lance <strong>FiveM en second</strong>.</li><li>Reviens sur Discord, attends la fenêtre d'autorisation de FiveM et <strong>autorise l'accès</strong> si elle apparaît.</li></ol>
+                <p class="support-step-hint">Si aucune fenêtre ne s'affiche, cela ne signifie pas forcément que la liaison a échoué : relance une connexion au serveur et vérifie si le problème initial persiste.</p>
+                <label class="support-done"><input type="checkbox" data-support-check="discord-3"><span class="support-check-ui" data-icon="check"></span> J'ai terminé cette étape</label>
+              </div></div>
+            </div>
+            <div class="support-guide-foot"><span><span data-icon="shield-check"></span> Connexion Discord / FiveM</span><span class="support-progress" data-guide-progress="discord">0 / 3 étapes terminées</span></div>
+          </article>
+
+          <article class="support-guide" id="vider-cache-fivem" data-guide="cache">
+            <div class="support-guide-top"><div class="support-icon" data-icon="layers"></div><div class="support-guide-identity"><span class="support-code">TUTORIEL / 002</span><h3>Vider le cache <em>FiveM</em></h3><p>Supprime les fichiers temporaires pour résoudre certains problèmes de chargement ou d'affichage.</p></div><span class="support-os">WINDOWS</span></div>
+            <div class="support-notice support-warning"><span data-icon="shield-alert"></span><div><strong>Important : conserve « game-storage »</strong><p>Ferme FiveM avant le nettoyage. Vérifie que tu es bien dans le dossier de FiveM et non dans celui de GTA V. Supprimer certains fichiers de données peut réinitialiser des réglages locaux ou entraîner un nouveau téléchargement.</p></div></div>
+            <div class="support-cache-map" aria-label="Repère du dossier à nettoyer"><span data-icon="file-text"></span><div><small>EXPLORATEUR WINDOWS / CHEMIN VISUEL</small><strong>FiveM Application Data <span>→</span> data <span>→</span> préserver game-storage</strong></div><span class="support-map-check" data-icon="check"></span></div>
+            <div class="support-steps">
+              <div class="support-step" data-step="cache-1"><div class="support-step-index">01<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 1</span><h4>Fermer FiveM</h4></div></div><p>Quitte entièrement FiveM et attends que le programme soit fermé avant de toucher à ses fichiers.</p><label class="support-done"><input type="checkbox" data-support-check="cache-1"><span class="support-check-ui" data-icon="check"></span> Fait</label></div></div>
+              <div class="support-step" data-step="cache-2"><div class="support-step-index">02<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 2</span><h4>Ouvrir le dossier FiveM</h4></div></div><p>Sur ton bureau, fais un <strong>clic droit sur l'icône FiveM</strong> puis sélectionne <strong>Ouvrir l'emplacement du fichier</strong>.</p><label class="support-done"><input type="checkbox" data-support-check="cache-2"><span class="support-check-ui" data-icon="check"></span> Fait</label></div></div>
+              <div class="support-step" data-step="cache-3"><div class="support-step-index">03<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 3</span><h4>Accéder à FiveM Application Data</h4></div></div><p>Dans l'emplacement ouvert, entre dans <strong>FiveM Application Data</strong> si ce dossier est présent (le nom peut varier selon l'installation).</p><label class="support-done"><input type="checkbox" data-support-check="cache-3"><span class="support-check-ui" data-icon="check"></span> Fait</label></div></div>
+              <div class="support-step" data-step="cache-4"><div class="support-step-index">04<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 4</span><h4>Nettoyer les dossiers de diagnostics</h4></div></div><p>Supprime les dossiers <code>crashes</code> et <code>logs</code> s'ils existent. Ils contiennent notamment des rapports de plantage et des journaux utiles au diagnostic : <strong>conserve-les si le support t'a demandé des logs</strong>.</p><label class="support-done"><input type="checkbox" data-support-check="cache-4"><span class="support-check-ui" data-icon="check"></span> Fait</label></div></div>
+              <div class="support-step" data-step="cache-5"><div class="support-step-index">05<span class="support-step-line"></span></div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 5</span><h4>Vider le dossier data</h4></div></div><p>Ouvre <code>data</code>. Pour un nettoyage approfondi, supprime les éléments temporaires de ce dossier <strong>en conservant impérativement le dossier <code>game-storage</code></strong>.</p><p class="support-step-hint">Un nettoyage ciblé des seuls dossiers de cache est préférable en première intention. Ne supprime pas les dossiers que tu ne reconnais pas sans en avoir fait une copie de sauvegarde.</p><label class="support-done"><input type="checkbox" data-support-check="cache-5"><span class="support-check-ui" data-icon="check"></span> Fait</label></div></div>
+              <div class="support-step" data-step="cache-6"><div class="support-step-index">06</div><div class="support-step-body"><div class="support-step-title"><div><span class="support-step-kicker">ÉTAPE 6</span><h4>Relancer FiveM</h4></div></div><p>Rouvre FiveM. Le premier lancement peut être plus long, car certains fichiers temporaires seront recréés automatiquement.</p><label class="support-done"><input type="checkbox" data-support-check="cache-6"><span class="support-check-ui" data-icon="check"></span> Fait</label></div></div>
+            </div>
+            <div class="support-guide-foot"><span><span data-icon="shield-check"></span> Nettoyage local / Aucune action serveur</span><span class="support-progress" data-guide-progress="cache">0 / 6 étapes terminées</span></div>
+          </article>
+          <div class="support-bottom"><span data-icon="shield-alert"></span><p>Le problème persiste ? Rejoins notre <a href="https://discord.gg/lazzenarp" target="_blank" rel="noopener noreferrer">Discord officiel</a> pour contacter le support LAZZENA RP.</p><a class="support-backtop" href="#accueil">Retour en haut <span data-icon="arrow-up"></span></a></div>
+        </section>
+
         <section class="outro" aria-label="Rappel sur les règles officielles">
           <div class="outro-shine" aria-hidden="true"></div><span class="outro-eyebrow">TRANSPARENCE / LAZZENA</span><h2>On écrit l'histoire<br><span>ensemble.</span></h2><p>Ce wiki est une <strong>proposition de règlement RP en cours de validation</strong>. Les règles spécifiques, sanctions et restrictions non validées ne sont pas inventées. Pour une question ou un incident, contacte la direction via un ticket.</p>
           <div class="outro-buttons"><a class="btn btn-primary" href="https://discord.gg/lazzenarp" target="_blank" rel="noopener noreferrer">Ouvrir le Discord <span data-icon="arrow-up-right"></span></a><button type="button" class="btn btn-ghost" id="back-top">Retour en haut <span data-icon="arrow-up"></span></button></div>
@@ -126,7 +178,7 @@
       </main>
     </div>
     <aside class="right-rail" aria-label="Aide à la lecture">
-      <div class="rail-group"><div class="rail-label">SUR CETTE PAGE</div><a href="#accueil" class="rail-anchor">Vue d'ensemble</a><a href="#chapitres" class="rail-anchor">Les chapitres</a><a href="#concepts" class="rail-anchor">Dictionnaire RP</a><a href="#scenarios" class="rail-anchor">Mises en situation</a></div>
+      <div class="rail-group"><div class="rail-label">SUR CETTE PAGE</div><a href="#accueil" class="rail-anchor">Vue d'ensemble</a><a href="#chapitres" class="rail-anchor">Les chapitres</a><a href="#concepts" class="rail-anchor">Dictionnaire RP</a><a href="#scenarios" class="rail-anchor">Mises en situation</a><a href="#assistance" class="rail-anchor">Assistance FiveM</a></div>
       <div class="rail-divider"></div>
       <div class="rail-group"><div class="rail-label">ASTUCE RAPIDE</div><p class="rail-copy">Clique sur une définition pour lire des exemples concrets.</p><div class="key-help"><kbd>Ctrl</kbd><span>+</span><kbd>K</kbd><span>Rechercher</span></div><div class="key-help"><kbd>/</kbd><span>Recherche rapide</span></div></div>
       <div class="rail-divider"></div>
