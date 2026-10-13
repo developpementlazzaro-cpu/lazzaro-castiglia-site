@@ -113,6 +113,16 @@ function renderScene(index){const s=sceneContent[index];$('#scenario-panel').inn
 }
 renderScene(0);document.querySelector('.scenario-tabs').addEventListener('click',e=>{const b=e.target.closest('.scenario-tab');if(b)renderScene(Number(b.dataset.scene))});$('#scenario-panel').addEventListener('click',e=>{const btn=e.target.closest('[data-scene-link]');if(btn)jumpToRule(btn.dataset.sceneLink)});
 
+// Guide d’assistance : suivi local, non connecté aux serveurs
+const helpChecks=Array.from(document.querySelectorAll('[data-support-check]'));
+const helpStorageKey='lazzena-codex-help-progress-v1';
+let doneHelp=[];try{doneHelp=JSON.parse(localStorage.getItem(helpStorageKey)||'[]');if(!Array.isArray(doneHelp))doneHelp=[]}catch{doneHelp=[]}
+for(const item of helpChecks){item.checked=doneHelp.includes(item.dataset.supportCheck)}
+function updateHelpProgress(){const completed=helpChecks.filter(x=>x.checked).map(x=>x.dataset.supportCheck);try{localStorage.setItem(helpStorageKey,JSON.stringify(completed))}catch{}
+for(const guide of ['discord','cache']){const items=helpChecks.filter(x=>x.dataset.supportCheck.startsWith(guide+'-'));const done=items.filter(x=>x.checked).length;const el=document.querySelector('[data-guide-progress="'+guide+'"]');if(el)el.textContent=done+' / '+items.length+' étapes terminées';}}
+for(const item of helpChecks)item.addEventListener('change',updateHelpProgress);
+updateHelpProgress();
+
 // Responsive sidebar
 const sidebar=$('#sidebar'),dim=$('#mobile-dim'),menu=$('#mobile-menu');
 function closeSidebar(){sidebar.classList.remove('mobile-open');dim.hidden=true;menu.setAttribute('aria-expanded','false')}
