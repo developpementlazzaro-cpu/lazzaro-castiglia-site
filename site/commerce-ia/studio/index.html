@@ -13,12 +13,13 @@
 <style>
 nav .links a{white-space:nowrap} .kicker{display:inline-block;font-size:12px;color:var(--mint);text-transform:uppercase;letter-spacing:.12em;font-weight:800}.card .price{margin:14px 0}.card ul{color:var(--muted);padding-left:21px}.card li{margin:8px 0}.card .btn{margin-top:12px}.demo{background:#12233a;border:1px solid #3a516c;padding:22px;border-radius:18px}.demo h3{font-size:20px;margin:8px 0}.demo p{color:var(--muted);margin:0 0 14px}.formcard{background:#122339;border-radius:20px;border:1px solid #34506b;padding:25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.full{grid-column:1/-1}.formcard label{margin:0 0 7px;display:block;font-weight:690;font-size:13px;color:#d0e5f1}.formcard input,.formcard select,.formcard textarea{width:100%;background:#0d1b2c;color:white;padding:14px;font:inherit;border:1px solid #3b566f;border-radius:10px}.formcard textarea{resize:vertical;min-height:115px}.formcard button{border:0;cursor:pointer}.formcard .help{font-size:13px;color:var(--muted)}.formcard .error{font-size:13px;color:#ffb5a9}.faq details{padding:19px 0;border-bottom:1px solid #2b445b}.faq summary{font-weight:720;cursor:pointer}.faq p{color:var(--muted)}.nowrap{white-space:nowrap}
 @media(max-width:650px){.formgrid{grid-template-columns:1fr}.formcard{padding:18px}.hero{padding:65px 0}.hero h1{max-width:650px}}
+.paygrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}.paycard{border:1px solid #38536b;border-radius:18px;background:#13263d;padding:26px}.paycard h3{margin:6px 0 10px;font-size:23px}.paycard p{color:var(--muted)}.paycard .payicon{font-size:13px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:#9befe2}.paycard .btn{margin-top:12px}.paycard .detail{font-size:13px;color:#aac2d2}.paynotice{padding:16px;margin-top:20px;border:1px solid #42607b;background:#102139;border-radius:12px;color:#b9d4e2}@media(max-width:650px){.paygrid{grid-template-columns:1fr}.paycard{padding:20px}}
 </style>
 </head>
 <body>
 <nav class="wrap" aria-label="Navigation principale">
 <a class="logo" href="../index.html">LAZZARO <b>STUDIO</b></a>
-<div class="links"><a href="#offres">Offres</a><a href="#exemples">Exemples</a><a href="#devis">Devis</a></div>
+<div class="links"><a href="#offres">Offres</a><a href="#exemples">Exemples</a><a href="#devis">Devis</a><a href="#paiement">Paiement</a></div>
 </nav>
 <main>
 <section class="hero" id="accueil"><div class="wrap">
@@ -80,6 +81,16 @@ nav .links a{white-space:nowrap} .kicker{display:inline-block;font-size:12px;col
 </form>
 </div>
 </section>
+<section class="section wrap" id="paiement" aria-labelledby="paiement-title">
+<span class="kicker">Règlement de prestations</span>
+<h2 id="paiement-title">Payer après acceptation du devis.</h2>
+<p class="subtle">Ces moyens de règlement concernent uniquement une prestation déjà chiffrée et acceptée. Aucun paiement n'est prélevé sur cette page.</p>
+<div class="paygrid">
+<article class="paycard"><span class="payicon">Bancontact</span><h3>Recevoir un lien Bancontact</h3><p>Bancontact sera disponible après activation et vérification d'un compte de paiement dédié. Pour le moment, demandez un lien après accord sur le devis.</p>
+<a class="btn" href="mailto:developpementlazzaro@gmail.com?subject=Demande%20lien%20Bancontact%20apr%C3%A8s%20devis&amp;body=Bonjour%2C%0A%0AR%C3%A9f%C3%A9rence%20du%20devis%20accept%C3%A9%20%3A%20%0AMontant%20convenu%20%3A%20%0A%0APouvez-vous%20me%20communiquer%20le%20lien%20Bancontact%20si%20disponible%20%3F">Demander un lien Bancontact →</a><p class="detail">Ouvre un email. Aucun paiement immédiat.</p></article>
+<article class="paycard"><span class="payicon">Virement bancaire · SEPA</span><h3>Payer par virement</h3><p>L'IBAN du bénéficiaire, le montant et la référence de paiement sont communiqués sur le devis ou la facture après validation.</p>
+<a class="btn alt" href="mailto:developpementlazzaro@gmail.com?subject=Coordonn%C3%A9es%20bancaires%20pour%20mon%20devis&amp;body=Bonjour%2C%0A%0AJe%20souhaite%20r%C3%A9gler%20mon%20devis%20par%20virement.%0A%0AR%C3%A9f%C3%A9rence%20devis%20%3A%20%0AMontant%20convenu%20%3A%20%0A%0AMerci%20de%20me%20communiquer%20votre%20IBAN%20et%20la%20r%C3%A9f%C3%A9rence.">Demander l'IBAN de paiement →</a><p class="detail">IBAN du bénéficiaire : à renseigner. Aucun numéro bancaire n'est affiché publiquement.</p></article>
+</div><p class="paynotice"><strong>Important :</strong> Bancontact et virement SEPA sont deux moyens différents. Un IBAN seul ne peut pas activer Bancontact. Les liens de règlement direct nécessitent un compte marchand actif.</p></section>
 <section class="section wrap faq"><h2>Questions fréquentes</h2>
 <details><summary>Le domaine et l'hébergement sont-ils compris ?</summary><p>Ils sont étudiés séparément selon la situation et les comptes déjà détenus. Aucun abonnement ne sera souscrit sans accord.</p></details>
 <details><summary>Pouvez-vous reprendre mon site existant ?</summary><p>Si son accès et sa technologie le permettent. Un diagnostic sera réalisé avant d'accepter la mission.</p></details>
