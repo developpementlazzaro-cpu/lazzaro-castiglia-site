@@ -9,32 +9,41 @@ permissions:
   id-token: write
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   deploy:
+    name: Déployer les sites publics
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - name: Préparer les illustrations et les chemins relatifs
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+      - name: Configurer GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Vérifier le site et les 3 activités
         run: |
-          node fetch-assets.mjs
+          set -euo pipefail
+          test -s site/index.html
+          test -s site/commerce-ia/index.html
+          test -s site/commerce-ia/studio/index.html
+          test -s site/commerce-ia/bureau/index.html
+          test -s site/commerce-ia/voyage/index.html
+          test -s site/commerce-ia/style.css
           python3 - <<'PY'
           from pathlib import Path
-          for path in Path('site').glob('*.html'):
-              text = path.read_text(encoding='utf-8')
-              text = text.replace('href="/', 'href="./').replace('src="/', 'src="./')
-              path.write_text(text, encoding='utf-8')
-          for path in Path('site').glob('*.css'):
-              text = path.read_text(encoding='utf-8')
-              text = text.replace("url('/assets/", "url('./assets/").replace('url("/assets/', 'url("./assets/')
-              path.write_text(text, encoding='utf-8')
+          for page in Path('site/commerce-ia').rglob('index.html'):
+              data = page.read_text(encoding='utf8')
+              assert '<meta name="viewport"' in data, page
+              assert '</html>' in data, page
+              assert 'mailto:developpementlazzaro@gmail.com' in data or 'index.html' in data, page
+          print("Pages commerciales vérifiées")
           PY
-      - uses: actions/upload-pages-artifact@v3
+      - name: Préparer l'artifact GitHub Pages
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./site
-      - id: deployment
+      - name: Publier GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
