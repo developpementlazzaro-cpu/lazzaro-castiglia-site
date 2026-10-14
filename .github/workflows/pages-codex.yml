@@ -1,0 +1,77 @@
+name: Actualiser LAZZENA CODEX après changement wiki
+
+on:
+  push:
+    branches: [lazzena-codex]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publier CODEX et conserver les sites commerciaux
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer le portfolio Lazzaro (main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: portfolio-source
+
+      - name: Recuperer le wiki LAZZENA (lazzena-codex)
+        uses: actions/checkout@v4
+        with:
+          ref: lazzena-codex
+          path: codex-source
+
+      - name: Verifier les deux sites avant toute publication
+        run: |
+          set -euo pipefail
+          for file in index.html app.js styles.css glossary.json logo.webp manifest.webmanifest robots.txt; do
+            test -s "codex-source/$file"
+          done
+          test -s portfolio-source/site/index.html
+          test -s portfolio-source/site/studio.css
+          test -s portfolio-source/site/commerce-ia/index.html
+          grep -Fq 'LE CODEX' codex-source/index.html
+          grep -Fq 'Lazzaro Castiglia' portfolio-source/site/index.html
+
+      - name: Assembler CODEX a la racine et portfolio sous /portfolio/
+        run: |
+          set -euo pipefail
+          mkdir -p public/portfolio
+          # Conserver les anciens liens commerciaux profonds (/demo.html, /commerce-ia/...).
+          cp -a portfolio-source/site/. public/
+          # Conserver aussi un portfolio independant accessible sous /portfolio/.
+          cp -a portfolio-source/site/. public/portfolio/
+          # LE CODEX PREND TOUJOURS LA PRIORITE A LA RACINE.
+          for file in index.html app.js styles.css glossary.json logo.webp manifest.webmanifest robots.txt; do
+            cp "codex-source/$file" "public/$file"
+          done
+          touch public/.nojekyll
+          grep -Fq 'LE CODEX' public/index.html
+          grep -Fq 'Lazzaro Castiglia' public/portfolio/index.html
+          test -s public/commerce-ia/index.html
+          echo "OK: LAZZENA CODEX = racine ; Lazzaro portfolio = /portfolio/"
+
+      - name: Configurer GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparer l'artifact GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Publier GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
