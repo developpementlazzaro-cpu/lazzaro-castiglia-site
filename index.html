@@ -20,6 +20,15 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css?v=1.1">
   <title>LE CODEX — Wiki du Roleplay | LAZZENA RP</title>
+
+  <style id="lazzena-vip-shop-style">
+    .vip-notice{border:1px solid rgba(225,6,0,.25);background:rgba(225,6,0,.065);border-radius:14px;padding:15px 18px;margin:0 0 22px;color:#d7d9e0;font-size:.9rem}
+    .vip-shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .vip-shop-card{min-width:0;padding:26px;border:1px solid rgba(255,255,255,.11);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));color:#f3f3f5}
+    .vip-shop-card small{color:#e65855;letter-spacing:.15em;font-weight:800}.vip-shop-card h3{font-size:1.45rem;margin:12px 0}.vip-shop-card p{color:#b8bbc6}.vip-shop-card .vip-price{color:#fff;font-size:2rem;font-weight:800;margin:10px 0}.vip-price span{font-size:.83rem;font-weight:500;color:#aeb2bc}.vip-shop-card ul{margin:22px 0 0;padding-left:20px;line-height:1.9;color:#e0e2e8}.vip-shop-card li::marker{color:#e10600}.vip-shop-featured{border-color:rgba(225,6,0,.6);box-shadow:inset 0 0 0 1px rgba(225,6,0,.12)}
+    .vip-shop-footer{margin:22px 0 0;padding:20px;border-top:1px solid rgba(255,255,255,.12);color:#b8bbc6}.vip-shop-footer a{color:#ff7474;text-decoration:underline;text-underline-offset:4px}
+    @media(max-width:700px){.vip-shop-grid{grid-template-columns:1fr}.vip-shop-card{padding:21px}.vip-shop-card .vip-price{font-size:1.8rem}}
+  </style>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -36,6 +45,7 @@
         <a class="side-link" href="#concepts" data-side-link="concepts"><span data-icon="library"></span><span>Le glossaire RP</span><span class="side-key">02</span></a>
         <a class="side-link" href="#scenarios" data-side-link="scenarios"><span data-icon="route"></span><span>Situations pratiques</span><span class="side-key">03</span></a>
         <a class="side-link" href="#assistance" data-side-link="assistance"><span data-icon="shield-check"></span><span>Assistance FiveM</span><span class="side-key">04</span></a>
+        <a class="side-link" href="#boutique" data-side-link="boutique"><span data-icon="gem"></span><span>Boutique VIP</span><span class="side-key">05</span></a>
         <button class="side-link" type="button" id="favorites-nav"><span data-icon="bookmark"></span><span>Mes favoris</span><span class="side-key" id="favorite-count">0</span></button>
         <div class="nav-label nav-label-second">CHAPITRES <span class="label-dash"></span></div>
         <nav id="chapter-nav" class="chapter-nav" aria-label="Chapitres"></nav>
@@ -94,6 +104,19 @@
         <section class="index-section" id="chapitres" aria-label="Explorer les chapitres">
           <div class="section-lead"><div><span class="overline"><span class="overline-bar"></span> 01 / EXPLORATION</span><h2>Un univers. <em>Ses codes.</em></h2><p>Choisis un chapitre pour comprendre les bases d’un roleplay cohérent.</p></div><div class="section-counter">05 <span>CHAPITRES</span></div></div>
           <div id="category-tiles" class="category-tiles"></div>
+        </section>
+
+
+        <section class="index-section" id="boutique" aria-label="Boutique VIP LAZZENA RP">
+          <div class="section-lead"><div><span class="overline"><span class="overline-bar"></span> LAZZENA / AVANTAGES</span><h2>Boutique <em>VIP.</em></h2><p>Quatre niveaux de privilèges pour personnaliser ton expérience à Los Santos.</p></div><div class="section-counter">04 <span>FORMULES</span></div></div>
+          <p class="vip-notice">Catalogue informatif — avantages soumis à validation finale. Les achats ne sont pas encore ouverts depuis le Codex.</p>
+          <div class="vip-shop-grid">
+            <article class="vip-shop-card"><small>01 / BRONZE</small><h3>VIP Bronze</h3><p class="vip-price">14,99 € <span>/ 30 jours</span></p><p>Le premier pas dans l'univers VIP.</p><ul><li>2 places dans le showroom</li><li>2 ambiances lumineuses</li><li>5 % de réduction sur les véhicules et l'immobilier</li><li>4 props persistants</li><li>Priorité de connexion niveau 1</li></ul></article>
+            <article class="vip-shop-card"><small>02 / SILVER</small><h3>VIP Silver</h3><p class="vip-price">29,99 € <span>/ 30 jours</span></p><p>Plus de confort, plus de personnalisation.</p><ul><li>4 places dans le showroom</li><li>3 ambiances lumineuses</li><li>8 % de réduction sur les véhicules et l'immobilier</li><li>7 props persistants</li><li>Boombox et importation de photos prévus</li></ul></article>
+            <article class="vip-shop-card vip-shop-featured"><small>03 / GOLD</small><h3>VIP Gold</h3><p class="vip-price">49,99 € <span>/ 30 jours</span></p><p>Pour une expérience RP plus exclusive.</p><ul><li>6 places dans le showroom</li><li>4 ambiances lumineuses</li><li>15 % de réduction sur les véhicules et l'immobilier</li><li>11 props persistants</li><li>Pilote automatique prévu</li></ul></article>
+            <article class="vip-shop-card"><small>04 / DIAMOND</small><h3>VIP Diamond</h3><p class="vip-price">79,99 € <span>/ 30 jours</span></p><p>Le niveau de personnalisation maximal.</p><ul><li>9 places dans le showroom</li><li>5 ambiances lumineuses</li><li>20 % de réduction sur les véhicules et l'immobilier</li><li>16 props persistants</li><li>Assurance véhicule et options exclusives prévues</li></ul></article>
+          </div>
+          <div class="vip-shop-footer"><p>Les avantages détaillés sont susceptibles d'évoluer avant l'ouverture officielle de la boutique. Le mode photo et la caméra libre restent accessibles à tous les joueurs.</p><a href="https://discord.gg/lazzenarp" target="_blank" rel="noopener noreferrer">Questions sur les offres ? Rejoins notre Discord officiel ↗</a></div>
         </section>
 
         <section class="glossary" id="concepts" aria-label="Glossaire du roleplay">
