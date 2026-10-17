@@ -143,6 +143,28 @@ document.addEventListener('keydown',e=>{
  if(!overlay.hidden){if(e.key==='ArrowDown'){e.preventDefault();paletteSelection=(paletteSelection+1)%Math.max(paletteItems.length,1);renderPalette()}else if(e.key==='ArrowUp'){e.preventDefault();paletteSelection=(paletteSelection-1+Math.max(paletteItems.length,1))%Math.max(paletteItems.length,1);renderPalette()}else if(e.key==='Enter'){e.preventDefault();choosePalette(paletteSelection)}return}
  if(e.key==='/'&&document.activeElement?.tagName!=='INPUT'&&document.activeElement?.tagName!=='TEXTAREA'){e.preventDefault();searchInput.focus();scrollToSelector('#concepts')}
 });
+// Règlement serveur : filtrage indépendant du glossaire, ancres et accordéons natifs.
+const serverChapters=Array.from(document.querySelectorAll('.server-chapter'));
+const serverSearch=$('#server-rule-search'), serverExpand=$('#server-rule-expand');
+function filterServerRules(){
+ const q=normalize(serverSearch.value);let total=0;
+ for(const chapter of serverChapters){let count=0;const title=chapter.querySelector('summary').textContent;
+  for(const article of chapter.querySelectorAll('article')){const match=!q||normalize(title+' '+article.textContent).includes(q);article.hidden=!match;if(match)count++;}
+  chapter.hidden=count===0;if(q&&count)chapter.open=true;total+=count;
+ }
+ $('#server-rule-status').textContent=total?total+' article'+(total>1?'s':'')+(q?' trouvé'+(total>1?'s':''):' · 10 chapitres'):'Aucun article trouvé. Essaie un autre mot-clé.';
+}
+serverSearch.addEventListener('input',filterServerRules);
+serverExpand.addEventListener('click',()=>{const visible=serverChapters.filter(c=>!c.hidden);const open=visible.some(c=>!c.open);visible.forEach(c=>c.open=open);serverExpand.textContent=open?'Tout replier':'Tout déplier';serverExpand.setAttribute('aria-expanded',String(open));});
+function revealServerHash(){
+ let hash;try{hash=decodeURIComponent(location.hash.slice(1));}catch{return;}
+ if(!hash.startsWith('serveur-'))return;
+ const el=document.getElementById(hash);if(!el)return;
+ serverSearch.value='';filterServerRules();const chapter=el.closest('.server-chapter');if(chapter)chapter.open=true;
+ requestAnimationFrame(()=>el.scrollIntoView({block:'start'}));
+}
+document.querySelector('.server-toc').addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;serverSearch.value='';filterServerRules();const target=document.getElementById(a.hash.slice(1));if(target)target.open=true;});
+window.addEventListener('hashchange',revealServerHash);requestAnimationFrame(revealServerHash);
 // Deep links and scroll reading progress
 function processHash(){const hash=decodeURIComponent(location.hash.slice(1));if(hash.startsWith('regle-')){const termId=hash.slice(6);if(termById.has(termId))jumpToRule(termId,false)}}
 window.addEventListener('hashchange',processHash);requestAnimationFrame(()=>{processHash();if(location.hash.startsWith('#regle-'))document.querySelector(location.hash)?.scrollIntoView({block:'start'})});
