@@ -2,7 +2,7 @@ name: Publier LAZZENA CODEX et portfolio Lazzaro
 
 on:
   push:
-    branches: [main, lazzena-codex]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
