@@ -4,142 +4,279 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#050412">
 <title>Pour toi</title>
 <style>
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    min-height: 100svh;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(ellipse at 50% 42%, #071b36, #020611 55%, #010206);
-    color: #e5f4ff;
+    margin: 0; min-height: 100svh; overflow-x: clip; color: #f6f2ff;
+    background: radial-gradient(ellipse at 50% 45%, #1a123e, #08091e 49%, #04030d 82%);
+    font: 14px system-ui, sans-serif;
   }
-  main { width: min(100%, 38rem); padding: 1.25rem; text-align: center; }
-  button {
-    display: block;
-    width: min(100%, 28rem);
-    margin: auto;
-    padding: 0;
-    border: 0;
-    border-radius: 1rem;
-    background: none;
-    color: inherit;
-    cursor: pointer;
-    font: 0.85rem system-ui, sans-serif;
-    letter-spacing: 0.12em;
+  canvas { position: fixed; inset: 0; height: 100%; width: 100%; pointer-events: none; }
+  main {
+    position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto 1fr;
+    place-items: center; text-align: center; padding: 1rem;
   }
-  button:focus-visible { outline: 2px solid #82dfff; outline-offset: 5px; }
-  canvas { display: block; width: 100%; aspect-ratio: 1; }
-  .hint { display: block; min-height: 1.3em; color: #a8d6f7; }
-  button[aria-expanded="true"] .hint { visibility: hidden; }
-  .message { min-height: 6.5rem; display: grid; place-items: start center; }
-  p {
-    margin: 0.75rem auto 0;
-    max-width: 24ch;
-    font: clamp(1.65rem, 5.7vw, 2.5rem)/1.2 Georgia, serif;
-    text-wrap: balance;
-    text-shadow: 0 0 24px #388dff;
-    animation: reveal 0.85s ease both;
+  button { color: inherit; cursor: pointer; font: inherit; }
+  button:focus-visible { outline: 2px solid #a8e5ff; outline-offset: 5px; }
+  #heart {
+    grid-row: 2; width: min(64svh, 90vw, 36rem); aspect-ratio: 1.24;
+    display: grid; align-content: end; justify-items: center;
+    border: 0; border-radius: 32%; background: transparent; touch-action: manipulation;
   }
-  @keyframes reveal { from { opacity: 0; transform: translateY(8px); } }
-  @media (prefers-reduced-motion: reduce) { p { animation: none; } }
+  #hint, #replay, #sound {
+    background: #100b25d9; border: 1px solid #c2b9ff48; border-radius: 100px;
+    padding: .62rem 1rem; box-shadow: 0 0 1.4rem #604dff29;
+  }
+  #closing { grid-row: 3; align-self: start; width: min(100%, 35rem); }
+  #message {
+    margin: .25rem auto 1rem; max-width: 23ch; text-wrap: balance;
+    font: clamp(1.65rem, 5vw, 3rem)/1.1 Georgia, serif;
+    text-shadow: 0 0 25px #af83ff, 0 2px 5px #09051e;
+  }
+  #closing:not([hidden]) { animation: appear 1.2s ease both; }
+  @keyframes appear { from { opacity: 0; transform: translateY(12px); } }
+  #sound {
+    position: fixed; z-index: 1; top: max(1rem, env(safe-area-inset-top));
+    right: 1rem; font-size: .8rem;
+  }
+  @media (prefers-reduced-motion: reduce) { #closing:not([hidden]) { animation: none; } }
 </style>
 </head>
 <body>
+<canvas aria-hidden="true"></canvas>
+<button id="sound" type="button" aria-pressed="false">Son désactivé</button>
 <main>
-  <button id="heart" aria-label="Toucher le cœur pour découvrir le message" aria-controls="message" aria-expanded="false">
-    <canvas aria-hidden="true"></canvas>
-    <span class="hint">Touche le cœur</span>
+  <button id="heart" type="button" aria-controls="closing" aria-expanded="false">
+    <span id="hint">Touche le cœur</span>
   </button>
-  <div class="message" aria-live="polite">
-    <p id="message" hidden></p>
-  </div>
+  <section id="closing" hidden>
+    <p id="message" tabindex="-1">Tu ne seras jamais seul tant que je serais là</p>
+    <button id="replay" type="button">Rejouer</button>
+  </section>
   <noscript>Tu ne seras jamais seul tant que je serais là</noscript>
 </main>
 <script>
-  const button = document.querySelector('#heart');
+  const heart = document.querySelector('#heart');
+  const hint = document.querySelector('#hint');
+  const closing = document.querySelector('#closing');
   const message = document.querySelector('#message');
+  const replay = document.querySelector('#replay');
+  const sound = document.querySelector('#sound');
   const canvas = document.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const colors = ['#235cda', '#3493ff', '#67ceff', '#c8f3ff'];
-  const particles = Array.from({ length: 1800 }, (_, index) => {
-    const angle = Math.random() * Math.PI * 2;
-    const scale = index < 380 ? 1 - Math.random() * 0.045 : Math.sqrt(Math.random());
+  const context = canvas.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const tau = Math.PI * 2;
+  const palette = ['#498cff', '#78d9ff', '#c3f7ff', '#b78dff', '#f6ccff'];
+  const random = (min, max) => min + Math.random() * (max - min);
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+  const particles = Array.from({ length: 2100 }, (_, i) => {
+    const angle = random(0, tau);
+    const radius = i < 650 ? random(.93, 1) : Math.sqrt(Math.random());
     return {
-      x: 16 * Math.sin(angle) ** 3 * scale,
+      x: Math.sin(angle) ** 3 * radius,
       y: -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle)
-        - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * scale,
-      phase: Math.random() * Math.PI * 2,
-      size: 0.4 + Math.random() ** 2 * 1.45,
-      color: colors[index % colors.length],
-      drift: 0.4 + Math.random() * 0.6
+        - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * radius / 16,
+      z: random(-.48, .48) * Math.sqrt(1 - radius * radius),
+      phase: random(0, tau), size: random(.55, 1.75),
+      speed: random(.35, 1), color: palette[i % palette.length]
     };
   });
+  const stars = Array.from({ length: 190 }, () => ({
+    x: Math.random(), y: Math.random(), size: random(.35, 1.5), phase: random(0, tau)
+  }));
+  const meteors = Array.from({ length: 7 }, (_, index) => ({
+    x: random(.25, .99), y: random(0, .62), offset: index * 1.83
+  }));
 
-  let size = 0;
-  let revealedAt = -Infinity;
-  const start = performance.now();
+  let width, height, centerX, centerY, scale, halo;
+  let start = performance.now();
+  let revealedAt = null;
+  let timer;
+  let targetX = 0, targetY = 0, tiltX = 0, tiltY = 0;
+  let audio;
+  let soundOn = false;
+  let frame = 0;
 
   function resize() {
-    size = canvas.clientWidth;
-    const density = Math.min(2, devicePixelRatio || 1);
-    canvas.width = canvas.height = Math.round(size * density);
-    ctx.setTransform(density, 0, 0, density, 0, 0);
+    if (!context) return;
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    const density = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * density);
+    canvas.height = Math.round(height * density);
+    context.setTransform(density, 0, 0, density, 0, 0);
+    const bounds = heart.getBoundingClientRect();
+    centerX = bounds.left + bounds.width / 2;
+    centerY = bounds.top + bounds.height * .49;
+    scale = bounds.width * .37;
+    if (scale <= 0) return;
+    halo = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, scale * 1.85);
+    halo.addColorStop(0, '#533cff29');
+    halo.addColorStop(.53, '#8d42ff10');
+    halo.addColorStop(1, '#5423ff00');
   }
 
-  function draw(now) {
-    const still = reducedMotion.matches;
-    const time = still ? 2 : (now - start) / 1000;
-    const elapsed = (now - revealedAt) / 1000;
-    const burst = !still && elapsed < 1.25 ? Math.sin(Math.PI * elapsed / 1.25) : 0;
-    const formation = Math.max(0, 1 - time / 1.65) ** 2;
-    const unit = size / 45;
-    const beat = 1 + 0.025 * Math.sin(time * 3);
+  function paint(now) {
+    if (!context || !halo) return;
+    const still = reduced.matches;
+    const time = still ? 0 : (now - start) / 1000;
+    const age = revealedAt === null ? -1 : (now - revealedAt) / 1000;
+    const assembly = still ? 0 : Math.max(0, 1 - time / 2.3) ** 2;
+    const burst = still || age < 0 || age > 2.2 ? 0 : Math.sin(Math.PI * age / 2.2) ** 2;
+    tiltX += (targetX - tiltX) * .055;
+    tiltY += (targetY - tiltY) * .055;
+    const yaw = still ? 0 : Math.sin(time * .65) * .29 + tiltX * .28;
+    const pitch = still ? 0 : tiltY * .19 + Math.sin(time * .55) * .09;
+    const cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+    const cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+    const pulse = 1 + .023 * Math.sin(time * 3.5) + .012 * Math.sin(time * 7);
 
-    ctx.clearRect(0, 0, size, size);
-    ctx.save();
-    ctx.translate(size / 2, size * 0.88);
-    ctx.scale(1, 0.19);
-    const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.34);
-    glow.addColorStop(0, '#79eaffad');
-    glow.addColorStop(0.38, '#118dff70');
-    glow.addColorStop(1, '#118dff00');
-    ctx.fillStyle = glow;
-    ctx.fillRect(-size / 2, -size / 2, size, size);
-    ctx.restore();
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = halo;
+    context.fillRect(0, 0, width, height);
+    context.globalCompositeOperation = 'lighter';
+    context.fillStyle = '#bfdbff';
+    for (const star of stars) {
+      context.globalAlpha = .19 + .46 * (.5 + .5 * Math.sin(star.phase + time * 1.4));
+      context.fillRect(star.x * width, star.y * height, star.size, star.size);
+    }
+    if (!still) {
+      for (const meteor of meteors) {
+        const travel = (time + meteor.offset) % 13;
+        if (travel > 1.1) continue;
+        const x = meteor.x * width - travel * 180;
+        const y = meteor.y * height + travel * 125;
+        const trail = context.createLinearGradient(x, y, x + 65, y - 45);
+        trail.addColorStop(0, '#a9d8ff');
+        trail.addColorStop(1, '#9aa4ff00');
+        context.globalAlpha = Math.sin(Math.PI * travel / 1.1) * .75;
+        context.strokeStyle = trail;
+        context.beginPath();
+        context.moveTo(x, y);
+        context.lineTo(x + 65, y - 45);
+        context.stroke();
+      }
+    }
 
-    ctx.globalCompositeOperation = 'lighter';
+    for (let orbit = 0; orbit < 3; orbit++) {
+      context.globalAlpha = .19 - orbit * .046;
+      context.strokeStyle = palette[orbit + 1];
+      context.beginPath();
+      context.ellipse(centerX, centerY + scale * 1.03, scale * (.49 + orbit * .22),
+        scale * (.075 + orbit * .042), 0, time * .62 + orbit * 2, time * .62 + orbit * 2 + 4.6);
+      context.stroke();
+    }
+
+    if (!still && age >= 0 && age < 1.7) {
+      for (let ring = 0; ring < 3; ring++) {
+        const progress = (age - ring * .13) / 1.3;
+        if (progress <= 0 || progress >= 1) continue;
+        context.globalAlpha = (1 - progress) ** 2 * .6;
+        context.strokeStyle = palette[ring + 1];
+        context.lineWidth = 2 - progress;
+        context.beginPath();
+        context.arc(centerX, centerY, scale * (.16 + 2.55 * progress), 0, tau);
+        context.stroke();
+      }
+      context.lineWidth = 1;
+    }
+
     for (const point of particles) {
-      const swirl = point.phase + time * 0.8;
-      const drift = burst * point.drift * size * 0.19;
-      const x = size / 2 + point.x * unit * beat * (1 - formation * 0.7)
-        + Math.cos(swirl) * (1.4 + drift);
-      const y = size * 0.46 + point.y * unit * beat * (1 - formation)
-        + size * 0.39 * formation + Math.sin(swirl) * (1.4 + drift);
-      ctx.fillStyle = point.color;
-      ctx.globalAlpha = 0.24 + 0.64 * (0.5 + 0.5 * Math.sin(point.phase + time * 4));
-      ctx.fillRect(x, y, point.size, point.size);
+      const spin = point.phase + time * .65;
+      const spread = assembly * (1 + point.speed) + burst * point.speed * 1.95;
+      const localX = point.x * pulse + Math.cos(spin) * spread;
+      const localY = point.y * pulse + Math.sin(spin) * spread * .85 + assembly * .9;
+      const x = localX * cosY - point.z * sinY;
+      const depth = point.z * cosY + localX * sinY;
+      const y = localY * cosP - depth * sinP;
+      const perspective = 3.9 / (3.9 - depth * cosP - localY * sinP);
+      const size = point.size * perspective * (1 + burst * .45);
+      context.globalAlpha = (.26 + .49 * (.5 + .5 * Math.sin(point.phase + time * 4))) * (1 - assembly * .24);
+      context.fillStyle = point.color;
+      context.fillRect(centerX + x * scale * perspective, centerY + y * scale * perspective, size, size);
     }
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
-    requestAnimationFrame(draw);
+    context.globalAlpha = 1;
+    context.globalCompositeOperation = 'source-over';
   }
 
-  button.addEventListener('click', () => {
-    revealedAt = performance.now();
-    if (message.hidden) {
-      message.hidden = false;
-      message.textContent = 'Tu ne seras jamais seul tant que je serais là';
-      button.setAttribute('aria-expanded', 'true');
-      button.setAttribute('aria-label', 'Relancer l’animation du cœur');
-    }
+  function animate(now) {
+    paint(now);
+    frame = reduced.matches || document.hidden ? 0 : requestAnimationFrame(animate);
+  }
+
+  function refresh() {
+    resize();
+    if (frame) cancelAnimationFrame(frame);
+    animate(performance.now());
+  }
+
+  function playChord() {
+    if (!soundOn || !audio) return;
+    audio.resume().then(() => {
+      if (!soundOn) return;
+      for (const [index, frequency] of [262, 392, 523, 659].entries()) {
+        const now = audio.currentTime + index * .105;
+        const tone = audio.createOscillator();
+        const volume = audio.createGain();
+        tone.type = 'sine';
+        tone.frequency.value = frequency;
+        volume.gain.setValueAtTime(.0001, now);
+        volume.gain.exponentialRampToValueAtTime(.065, now + .05);
+        volume.gain.exponentialRampToValueAtTime(.0001, now + 1.6);
+        tone.connect(volume).connect(audio.destination);
+        tone.start(now);
+        tone.stop(now + 1.61);
+      }
+    }).catch(() => {});
+  }
+
+  sound.addEventListener('click', () => {
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    audio ??= new Audio();
+    soundOn = !soundOn;
+    sound.setAttribute('aria-pressed', String(soundOn));
+    sound.textContent = soundOn ? 'Son activé' : 'Son désactivé';
+    if (soundOn) playChord();
+    else audio.suspend().catch(() => {});
   });
 
-  resize();
-  new ResizeObserver(resize).observe(canvas);
-  requestAnimationFrame(draw);
+  heart.addEventListener('click', () => {
+    if (revealedAt !== null) return;
+    revealedAt = performance.now();
+    heart.setAttribute('aria-expanded', 'true');
+    heart.setAttribute('aria-label', 'Cœur animé');
+    hint.style.visibility = 'hidden';
+    playChord();
+    timer = setTimeout(() => {
+      closing.hidden = false;
+      message.focus({ preventScroll: true });
+    }, reduced.matches ? 0 : 1180);
+  });
+
+  replay.addEventListener('click', () => {
+    clearTimeout(timer);
+    start = performance.now();
+    revealedAt = null;
+    closing.hidden = true;
+    hint.style.visibility = '';
+    heart.removeAttribute('aria-label');
+    heart.setAttribute('aria-expanded', 'false');
+    heart.focus({ preventScroll: true });
+  });
+
+  window.addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch') return;
+    targetX = clamp((event.clientX - centerX) / scale, -1, 1);
+    targetY = clamp((event.clientY - centerY) / scale, -1, 1);
+  });
+  window.addEventListener('resize', refresh);
+  reduced.addEventListener('change', refresh);
+  document.addEventListener('visibilitychange', refresh);
+  if (!(window.AudioContext || window.webkitAudioContext)) sound.hidden = true;
+  refresh();
 </script>
 </body>
 </html>
