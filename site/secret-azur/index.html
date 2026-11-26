@@ -208,6 +208,7 @@
   #letter h3 { margin: 0 0 .75rem; font: italic 400 1.65rem Georgia, serif; }
   #letter p { margin: .75rem 0; font: 1.07rem/1.55 Georgia, serif; }
   #letter strong { color: #6b304e; }
+  #closing .action, #closing #replay { margin: .15rem .2rem; }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
@@ -454,7 +455,7 @@
     revealedAt = performance.now();
     heart.classList.add('opening');
     heart.setAttribute('aria-expanded', 'true');
-    heart.setAttribute('aria-label', 'Cœur animé');
+    heart.setAttribute('aria-label', 'Cadeau ouvert, cœur animé');
     hint.style.visibility = 'hidden';
     playMusic();
     timer = setTimeout(() => {
