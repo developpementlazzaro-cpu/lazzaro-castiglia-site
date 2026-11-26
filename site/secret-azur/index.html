@@ -91,12 +91,133 @@
     #closing:not([hidden]), .opening .gift * { animation: none !important; }
     .opening .gift { visibility: hidden; }
   }
+  :root { --gold: #f4dab1; --muted: #c7bed7; }
+  body {
+    background: radial-gradient(ellipse at 50% 48%, #24143a, #0b0c21 58%, #060611 88%);
+  }
+  [hidden] { display: none !important; }
+  button { -webkit-tap-highlight-color: transparent; }
+  .dedication {
+    grid-row: 1; align-self: end; padding-bottom: .55rem;
+    color: var(--gold); text-align: center;
+  }
+  .dedication h1 {
+    margin: 0; font: italic 400 clamp(2.25rem, 7vw, 4.4rem)/1 Georgia, serif;
+    letter-spacing: -.045em; text-shadow: 0 0 40px #dbadff48;
+  }
+  .dedication h1::before, .dedication h1::after {
+    content: '✧'; display: inline-block; vertical-align: middle;
+    margin: 0 .72rem; font: .65rem Georgia, serif; color: #d0b2ea;
+  }
+  #heart { width: min(61svh, 89vw, 36rem); }
+  .gift::before {
+    content: ''; position: absolute; inset: -25%;
+    border: 1px solid #e1ccff30; border-radius: 50%;
+    background: radial-gradient(circle, #e4b2ff24, transparent 68%);
+    box-shadow: 0 0 1.3rem #be8aff20, inset 0 0 1.3rem #be8aff20;
+    animation: breathe 3.6s ease-in-out infinite alternate;
+  }
+  .opening .gift::before { animation: ribbon-away .85s ease both; }
+  @keyframes breathe { from { transform: scale(.91); } to { transform: scale(1.07); } }
+  #hint, .action {
+    display: inline-flex; justify-content: center; align-items: center; min-height: 44px;
+    border: 1px solid #e2c7a164; border-radius: 100px; padding: .65rem 1.25rem;
+    background: linear-gradient(120deg, #342242, #1e1831);
+    box-shadow: 0 0 1.6rem #c282ee28; color: #ffebd4;
+    font-size: .88rem;
+  }
+  .action:hover, #heart:hover #hint { background: #472b53; }
+  .quiet {
+    padding: .65rem .8rem; border: 0; border-radius: 100px;
+    background: transparent; color: var(--muted); min-height: 44px;
+  }
+  .quiet:hover { color: white; }
+  #closing { padding-top: .45rem; }
+  body[data-chapter] canvas { opacity: .3; }
+  canvas { transition: opacity .65s ease; }
+  #story {
+    grid-row: 1 / -1; width: min(100%, 33rem); margin-block: 4rem 1.5rem;
+    border: 1px solid #d4c4ff35; border-radius: 2rem; padding: clamp(1rem, 5vw, 2.3rem);
+    background: radial-gradient(ellipse at 50% 0%, #302345de, #100d23ee 64%);
+    box-shadow: 0 1.5rem 6rem #05030caa, inset 0 1px #f3dbfb22;
+    animation: appear .85s ease both;
+  }
+  #story h2 {
+    margin: .35rem 0 .55rem; color: #fff0db; text-wrap: balance;
+    font: italic 400 clamp(1.95rem, 8vw, 3.05rem)/1 Georgia, serif;
+    letter-spacing: -.035em;
+  }
+  #story h2:focus, #letter:focus { outline: none; }
+  .instruction { margin: .6rem auto 0; color: var(--muted); }
+  .sky {
+    position: relative; width: min(100%, 24rem); aspect-ratio: 1.23;
+    margin-inline: auto; isolation: isolate;
+    background: radial-gradient(ellipse, #6e4ca02b, transparent 68%);
+  }
+  .star {
+    position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+    width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 0;
+    background: transparent; color: #ad9ec6; font: 1.25rem Georgia, serif;
+  }
+  .star:disabled { cursor: default; }
+  .star:not(:disabled) { color: #ffe6b4; text-shadow: 0 0 12px #f5beff, 0 0 25px #eb70ff; }
+  .star:not(:disabled)::after {
+    content: ''; position: absolute; inset: 6px; border: 1px solid #caa7ee88;
+    border-radius: 50%; animation: breathe .95s ease-in-out infinite alternate;
+  }
+  .star[data-lit] { color: #fff4d5; text-shadow: 0 0 10px #fbc6ff, 0 0 28px #c178ff; }
+  .star-line {
+    position: absolute; z-index: -1; height: 1.5px; transform-origin: left center;
+    background: linear-gradient(90deg, #d6b8ff, #ffe9bd); box-shadow: 0 0 9px #c188ef;
+    animation: line-in .5s ease both;
+  }
+  @keyframes line-in { from { opacity: 0; } }
+  #sky-status { min-height: 2rem; margin: 0 0 .2rem; color: var(--gold); }
+  #envelope {
+    display: grid; justify-items: center; gap: 1rem; width: 100%;
+    border: 0; border-radius: 1rem; background: transparent; padding: 1.15rem 0 .2rem;
+  }
+  .envelope-art {
+    width: min(71vw, 16rem); aspect-ratio: 1.55; position: relative;
+    border-radius: .55rem; isolation: isolate; perspective: 550px;
+    background: linear-gradient(160deg, #d199a2, #834e6f);
+    box-shadow: 0 12px 40px #05041091, 0 0 35px #dfa4c62c;
+  }
+  .envelope-art::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit;
+    background: linear-gradient(160deg, #ecc2ba, #bc7e92);
+    clip-path: polygon(0 0, 50% 61%, 100% 0); transform-origin: top;
+  }
+  .envelope-art::after {
+    content: '♥'; position: absolute; z-index: 2; top: 48%; left: 50%;
+    transform: translate(-50%, -50%); width: 2rem; aspect-ratio: 1;
+    display: grid; place-items: center; border-radius: 50%;
+    background: radial-gradient(at 35% 27%, #c66883, #77283f);
+    border: 1px solid #e0919c; color: #ffe2ce; box-shadow: 0 3px 8px #411328a0;
+  }
+  #envelope[data-open] .envelope-art::before { animation: flap .7s ease forwards; }
+  #envelope[data-open] .envelope-art::after { animation: seal .3s ease forwards; }
+  @keyframes flap { to { transform: rotateX(165deg); opacity: .15; } }
+  @keyframes seal { to { transform: translate(-50%, -70%) scale(.55); opacity: 0; } }
+  #letter {
+    margin-block: 1.2rem .65rem; padding: clamp(1rem, 4vw, 2rem);
+    border-radius: .4rem; background: linear-gradient(150deg, #fff2d6, #eed6c1);
+    color: #412638; text-align: left; box-shadow: 0 12px 35px #05020f6e;
+    animation: appear .85s ease both;
+  }
+  #letter h3 { margin: 0 0 .75rem; font: italic 400 1.65rem Georgia, serif; }
+  #letter p { margin: .75rem 0; font: 1.07rem/1.55 Georgia, serif; }
+  #letter strong { color: #6b304e; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
 </style>
 </head>
 <body>
 <canvas aria-hidden="true"></canvas>
 <button id="sound" type="button" aria-pressed="true">Son activé</button>
 <main>
+  <header class="dedication"><h1>Pour toi</h1></header>
   <button id="heart" type="button" aria-controls="closing" aria-expanded="false">
     <span class="gift" aria-hidden="true">
       <span class="box"></span><span class="lid"></span>
@@ -106,7 +227,40 @@
   </button>
   <section id="closing" hidden>
     <p id="message" tabindex="-1">Tu ne seras jamais seul tant que je serais là</p>
+    <button id="discover" class="action" type="button">Il y a autre chose…</button>
     <button id="replay" type="button">Rejouer</button>
+  </section>
+  <section id="story" aria-labelledby="story-title" hidden>
+    <h2 id="story-title" tabindex="-1">Relie les étoiles</h2>
+    <div id="constellation">
+      <p class="instruction">Touche les étoiles qui s’allument, une par une.</p>
+      <div class="sky">
+        <div id="star-lines" aria-hidden="true"></div>
+        <button class="star" type="button" style="--x:50%;--y:82%" aria-label="Étoile 1 sur 8">✦</button>
+        <button class="star" type="button" style="--x:23%;--y:55%" aria-label="Étoile 2 sur 8" disabled>✦</button>
+        <button class="star" type="button" style="--x:18%;--y:29%" aria-label="Étoile 3 sur 8" disabled>✦</button>
+        <button class="star" type="button" style="--x:34%;--y:15%" aria-label="Étoile 4 sur 8" disabled>✦</button>
+        <button class="star" type="button" style="--x:50%;--y:30%" aria-label="Étoile 5 sur 8" disabled>✦</button>
+        <button class="star" type="button" style="--x:66%;--y:15%" aria-label="Étoile 6 sur 8" disabled>✦</button>
+        <button class="star" type="button" style="--x:82%;--y:30%" aria-label="Étoile 7 sur 8" disabled>✦</button>
+        <button class="star" type="button" style="--x:77%;--y:55%" aria-label="Étoile 8 sur 8" disabled>✦</button>
+      </div>
+      <p id="sky-status" aria-live="polite"></p>
+      <button id="next-letter" class="action" type="button" hidden>Découvrir la lettre</button>
+    </div>
+    <div id="envelope-scene" hidden>
+      <button id="envelope" type="button">
+        <span class="envelope-art" aria-hidden="true"></span>
+        <span class="action">Ouvrir la lettre</span>
+      </button>
+      <article id="letter" tabindex="-1" hidden>
+        <h3>J’avais envie de te dire…</h3>
+        <p>Il m’arrive de voir un truc drôle ou une jolie lumière et de me dire que j’aimerais te le montrer. C’est souvent toi à qui j’ai envie d’écrire dans ces moments-là.</p>
+        <p>Tu me plais. Et j’aimerais passer un peu plus de temps avec toi, loin de nos écrans.</p>
+        <p><strong>Ça te dirait qu’on se voie, juste toi et moi ?</strong> On prend quelque chose à boire, on marche un peu, et on voit où la soirée nous mène.</p>
+      </article>
+    </div>
+    <button id="restart-story" class="quiet" type="button">Rejouer depuis le début</button>
   </section>
   <noscript>Tu ne seras jamais seul tant que je serais là</noscript>
 </main>
@@ -159,13 +313,21 @@
     width = canvas.clientWidth;
     height = canvas.clientHeight;
     const density = Math.min(devicePixelRatio || 1, 2);
-    canvas.width = Math.round(width * density);
-    canvas.height = Math.round(height * density);
+    const pixelsWide = Math.round(width * density);
+    const pixelsHigh = Math.round(height * density);
+    if (canvas.width !== pixelsWide) canvas.width = pixelsWide;
+    if (canvas.height !== pixelsHigh) canvas.height = pixelsHigh;
     context.setTransform(density, 0, 0, density, 0, 0);
-    const bounds = heart.getBoundingClientRect();
-    centerX = bounds.left + bounds.width / 2;
-    centerY = bounds.top + bounds.height * .49;
-    scale = bounds.width * .37;
+    if (heart.hidden) {
+      centerX = width / 2;
+      centerY = height / 2;
+      scale = Math.min(width, height) * .29;
+    } else {
+      const bounds = heart.getBoundingClientRect();
+      centerX = bounds.left + bounds.width / 2;
+      centerY = bounds.top + bounds.height * .49;
+      scale = bounds.width * .37;
+    }
     if (scale <= 0) return;
     halo = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, scale * 1.85);
     halo.addColorStop(0, '#533cff29');
@@ -319,7 +481,110 @@
     targetX = clamp((event.clientX - centerX) / scale, -1, 1);
     targetY = clamp((event.clientY - centerY) / scale, -1, 1);
   });
+  const dedication = document.querySelector('.dedication');
+  const story = document.querySelector('#story');
+  const storyTitle = document.querySelector('#story-title');
+  const constellation = document.querySelector('#constellation');
+  const sky = document.querySelector('.sky');
+  const starLines = document.querySelector('#star-lines');
+  const starButtons = [...sky.querySelectorAll('.star')];
+  const skyStatus = document.querySelector('#sky-status');
+  const nextLetter = document.querySelector('#next-letter');
+  const envelopeScene = document.querySelector('#envelope-scene');
+  const envelope = document.querySelector('#envelope');
+  const letter = document.querySelector('#letter');
+  let litCount = 0;
+  let letterTimer;
+
+  function drawConstellation() {
+    starLines.replaceChildren();
+    const bounds = sky.getBoundingClientRect();
+    if (!bounds.width) return;
+    const positions = starButtons.map(star => ({
+      x: bounds.width * parseFloat(star.style.getPropertyValue('--x')) / 100,
+      y: bounds.height * parseFloat(star.style.getPropertyValue('--y')) / 100
+    }));
+    const complete = litCount === positions.length;
+    const edges = complete ? litCount : litCount - 1;
+    for (let i = 0; i < edges; i++) {
+      const from = positions[i];
+      const to = positions[(i + 1) % positions.length];
+      const x = to.x - from.x;
+      const y = to.y - from.y;
+      const line = document.createElement('span');
+      line.className = 'star-line';
+      line.style.cssText = `left:${from.x}px;top:${from.y}px;width:${Math.hypot(x,y)}px;transform:rotate(${Math.atan2(y,x)}rad)`;
+      starLines.append(line);
+    }
+  }
+
+  document.querySelector('#discover').addEventListener('click', () => {
+    document.body.dataset.chapter = 'constellation';
+    dedication.hidden = heart.hidden = closing.hidden = true;
+    story.hidden = false;
+    refresh();
+    storyTitle.focus();
+  });
+
+  starButtons.forEach((star, index) => {
+    star.addEventListener('click', () => {
+      if (index !== litCount) return;
+      star.dataset.lit = '';
+      star.disabled = true;
+      litCount++;
+      drawConstellation();
+      const next = starButtons[litCount];
+      if (next) {
+        next.disabled = false;
+        next.focus({ preventScroll: true });
+      } else {
+        skyStatus.textContent = 'Les étoiles ont dessiné un cœur.';
+        nextLetter.hidden = false;
+        nextLetter.focus({ preventScroll: true });
+      }
+    });
+  });
+  new ResizeObserver(drawConstellation).observe(sky);
+
+  nextLetter.addEventListener('click', () => {
+    document.body.dataset.chapter = 'envelope';
+    constellation.hidden = true;
+    envelopeScene.hidden = false;
+    storyTitle.textContent = 'Une lettre pour toi';
+    storyTitle.focus();
+  });
+
+  envelope.addEventListener('click', () => {
+    if (envelope.hasAttribute('data-open')) return;
+    envelope.dataset.open = '';
+    letterTimer = setTimeout(() => {
+      envelope.hidden = true;
+      letter.hidden = false;
+      letter.focus();
+    }, reduced.matches ? 0 : 700);
+  });
+
+  document.querySelector('#restart-story').addEventListener('click', () => {
+    clearTimeout(letterTimer);
+    delete document.body.dataset.chapter;
+    story.hidden = envelopeScene.hidden = letter.hidden = nextLetter.hidden = true;
+    dedication.hidden = heart.hidden = constellation.hidden = envelope.hidden = false;
+    storyTitle.textContent = 'Relie les étoiles';
+    delete envelope.dataset.open;
+    litCount = 0;
+    starLines.replaceChildren();
+    skyStatus.textContent = '';
+    starButtons.forEach((star, index) => {
+      star.disabled = index > 0;
+      delete star.dataset.lit;
+    });
+    replay.click();
+    refresh();
+    heart.scrollIntoView({ block: 'center' });
+  });
+
   window.addEventListener('resize', refresh);
+  window.addEventListener('scroll', refresh, { passive: true });
   reduced.addEventListener('change', refresh);
   document.addEventListener('visibilitychange', refresh);
   refresh();
